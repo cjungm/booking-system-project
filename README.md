@@ -1,4 +1,5 @@
 # Infra CI/CD Jenkins 설정
+## [자세한 내용](https://github.com/cjungm/booking-system-project/blob/master/Infra%20CICD.pdf)
 
 ## Java 설치 
 
