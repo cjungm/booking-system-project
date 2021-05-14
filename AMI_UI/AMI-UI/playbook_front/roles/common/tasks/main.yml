@@ -1,0 +1,28 @@
+# 패키지 업데이트 (Linux yum)
+- name: update yum packages
+  become: yes
+  yum: 
+    list: updates 
+    update_cache: true
+
+# Git 설치
+- name: install git
+  become: yes
+  yum:
+    name: git
+    state: latest
+
+# Ruby 설치
+- name: install ruby
+  become: yes
+  yum:
+    name: ruby
+    state: latest
+
+# timezone 설정
+- name: set Asia/Seoul timezone
+  become: yes
+  timezone:
+    name: Asia/Seoul
+
+
