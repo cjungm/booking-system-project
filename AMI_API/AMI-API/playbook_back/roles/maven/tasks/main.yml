@@ -1,0 +1,7 @@
+- name: Install Maven
+  become: yes
+  unarchive:
+    src: http://mirror.apache-kr.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip
+    dest: /home/ec2-user
+    remote_src: yes
+
