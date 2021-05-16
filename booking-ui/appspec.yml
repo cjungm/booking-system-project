@@ -1,0 +1,33 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ec2-user/front/
+hooks:
+  BeforeInstall:
+    - location: scripts/beforeInstall.sh
+      timeout: 150
+      runas: root
+  AfterInstall:
+    - location: scripts/afterInstall.sh
+      timeout: 150
+      runas: ec2-user
+      #    - location: scripts/generate_config.sh
+      #      timeout: 150
+      #      runas: ec2-user
+  ApplicationStart:
+    - location: scripts/applicationStart.sh
+      timeout: 150
+      runas: ec2-user
+    - location: scripts/routerStart.sh
+      timeout: 150
+      runas: ec2-user
+  ApplicationStop:
+    - location: scripts/applicationStop.sh
+      timeout: 600
+      runas: root
+permissions:
+    - object: /
+      pattern: "**"
+      owner: ec2-user
+      group: ec2-user
