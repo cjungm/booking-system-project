@@ -1,0 +1,14 @@
+[Unit]
+Description=Systemd Service for Bespin Global Devops Landing Project - Router
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/node /home/ec2-user/front/index.js
+Restart=on-failure
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=DEVOPS_ROUTER
+
+[Install]
+WantedBy=multi-user.target
