@@ -1,0 +1,37 @@
+#encoding
+#database : ssh 접속 - ubuntu@
+#database : mysql -h devops-rds.c7iudllookzy.ap-northeast-2.rds.amazonaws.com -u master -p
+#static resources
+
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://crbs-rds-instance.c7iudllookzy.ap-northeast-2.rds.amazonaws.com:3306/devops?useSSL=false&serverTimezone=UTC&useCursors=false&sendStringParametersAsUnicode=false&characterEncoding=UTF8&autoReconnection=true
+    username: master
+    password: ENC(os18kZ+6V3nXF/POauA9lxvcGVmL2mxT)
+    dbcp2:
+      test-on-borrow: true
+      validation-query: select 1
+  
+  
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/static/
+    add-mappings: true
+    
+#server port
+server:
+  port: 8090
+  
+#jasypt
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+    algorithm: PBEWithMD5AndDES
+    password: devops
