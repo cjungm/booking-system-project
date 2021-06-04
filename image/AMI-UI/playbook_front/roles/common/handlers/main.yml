@@ -1,0 +1,6 @@
+# chronyd 실행 handler
+- name: start chronyd
+  become: yes
+  service: 
+    name: chronyd
+    enabled: yes

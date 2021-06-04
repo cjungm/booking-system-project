@@ -1,0 +1,49 @@
+# 패키지 업데이트 (Linux yum)
+- name: update yum packages
+  become: yes
+  yum: 
+    list: updates 
+    update_cache: true
+
+# Git 설치
+- name: install git
+  become: yes
+  yum:
+    name: git
+    state: latest
+
+# Ruby 설치
+- name: install ruby
+  become: yes
+  yum:
+    name: ruby
+    state: latest
+
+# # jq 설치
+# - name: install jq
+#   become: yes
+#   yum:
+#     name: jq
+#     state: latest
+
+# timezone 설정
+- name: set Asia/Seoul timezone
+  become: yes
+  timezone:
+    name: Asia/Seoul
+
+# 서버시간 동기화
+- name: remove unused yum packages -ntp
+  become: yes
+  yum:
+    name: ntp
+    state: absent
+
+- name: install chrony
+  become: yes
+  yum:
+    name: chrony
+    state: latest
+  notify:
+    - start chronyd
+
