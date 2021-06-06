@@ -1,0 +1,30 @@
+- name: 8080 input
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: 8080
+    jump: ACCEPT
+    action: insert
+    rule_num: 1
+  become: yes
+
+- name: 80 output
+  iptables:
+    chain: OUTPUT
+    protocol: tcp
+    destination_port: 80
+    jump: ACCEPT
+    action: insert
+    rule_num: 1
+  become: yes
+
+- name: 8080input
+  iptables:
+    chain: PREROUTING
+    protocol: tcp
+    destination_port: 80
+    jump: REDIRECT
+    to_ports: 8080
+    table: nat
+    action: append
+  become: yes
