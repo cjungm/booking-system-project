@@ -1,0 +1,36 @@
+- name: 8080 input
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: 8080
+    jump: ACCEPT
+    action: insert
+    rule_num: 1
+  become: yes
+
+  # iptables -I INPUT 1 -p tcp --dport 8080 -j ACCEPT
+
+- name: 80 output
+  iptables:
+    chain: OUTPUT
+    protocol: tcp
+    destination_port: 80
+    jump: ACCEPT
+    action: insert
+    rule_num: 1
+  become: yes
+
+  # iptables -I OUTPUT 1 -p tcp	--dport 80 -j ACCEPT
+
+- name: 8080 to 80
+  iptables:
+    chain: PREROUTING
+    protocol: tcp
+    destination_port: 80
+    jump: REDIRECT
+    to_ports: 8080
+    table: nat
+    action: append
+  become: yes
+
+  # sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
